@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from decimal import Decimal
+import datetime
 
 from app.customer import Customer
 
@@ -11,7 +12,8 @@ class Shop:
     products: dict[str, float]
 
     def customer_purchase(self, customer: Customer) -> None:
-        print("\nDate: 04/01/2021 12:33:41")
+        now = datetime.datetime.now()
+        print(f"\nDate: {now.strftime('%d/%m/%Y %H:%M:%S')}")
         print(f"Thanks, {customer.name}, for your purchase!")
         print("You have bought:")
         total_price = Decimal("0")
@@ -20,4 +22,7 @@ class Shop:
             price = int(price) if price == price.to_integral() else price
             print(f"{value} {product}s for {price} dollars")
             total_price += price
-        print(f"Total cost is {total_price} dollars\nSee you again!\n")
+        total_print = (int(total_price)
+                       if total_price == total_price.to_integral()
+                       else total_price)
+        print(f"Total cost is {total_print} dollars\nSee you again!\n")

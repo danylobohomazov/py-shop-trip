@@ -19,10 +19,5 @@ class Customer:
             self.car = car
         elif isinstance(car, dict):
             self.car = Car(**car)
-
-    def __repr__(self) -> str:
-        return (f"Customer(name={self.name}, "
-                f"products_cart={self.product_cart}, "
-                f"location={self.location}, "
-                f"money={self.money}), "
-                f"car={self.car}")
+        else:
+            raise TypeError("car must be a Car or dict")
