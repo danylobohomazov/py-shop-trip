@@ -12,8 +12,8 @@ def calculate_products(customer: Customer, shop: Shop) -> Decimal | None:
         if shop_price is not None:
             price += Decimal(str(shop_price)) * Decimal(str(value))
         else:
-            return None
-    return price
+            return Decimal("Infinity")
+    return price.quantize(Decimal("0.01"))
 
 
 def calculate_distance(
@@ -21,13 +21,14 @@ def calculate_distance(
         shop: Shop,
         fuel_price: float
 ) -> Decimal:
+    fuel_price = Decimal(str(fuel_price))
     distance = sqrt(
         (customer.location[0] - shop.location[0]) ** 2
         + (customer.location[1] - shop.location[1]) ** 2
     )
     result = (Decimal(str(distance))
               * Decimal("2")
-              * Decimal(str(fuel_price))
+              * fuel_price
               * Decimal(str(customer.car.fuel_consumption)) / Decimal("100")
               )
     return result.quantize(Decimal("0.01"))

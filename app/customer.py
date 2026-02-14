@@ -14,7 +14,10 @@ class Customer:
         self.name = name
         self.product_cart = product_cart
         self.location = location
-        self.money = money
+        if isinstance(money, Decimal):
+            self.money = money
+        else:
+            self.money = Decimal(str(money))
         if isinstance(car, Car):
             self.car = car
         elif isinstance(car, dict):
